@@ -1,0 +1,34 @@
+@(id: Long, projectForm: Form[Project], customers : Seq[(String, String)])(implicit requestHeader: MessagesRequestHeader)
+
+@import views.html.helper._
+
+@main {
+
+    <h1>Edit project</h1>
+
+    @form(routes.HomeController.updateProject(id)) {
+
+        <fieldset>
+            @CSRF.formField
+            @inputText(projectForm("name"), '_label -> "Project name", '_help -> "")
+            @select(
+                projectForm("company"),
+                customers,
+                '_label -> "Customer", '_default -> "-- Choose a customer --",
+                '_showConstraints -> false
+            )
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="Save this project" class="btn primary"> or
+            <a href="@routes.HomeController.listProjects()" class="btn">Cancel</a>
+        </div>
+
+    }
+
+    @form(routes.HomeController.deleteProject(id), 'class -> "topRight") {
+        @CSRF.formField
+        <input type="submit" value="Delete this project" class="btn danger">
+    }
+
+}

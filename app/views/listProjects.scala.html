@@ -1,0 +1,26 @@
+@(projectsWithCustomers: Seq[(Project, Customer)])(implicit request: MessagesRequestHeader)
+
+
+@main {
+    <table class="projects zebra-striped">
+
+        <thead>
+            <tr>
+                <th>Project name</th>
+                <th>Customer name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @for(pwc <- projectsWithCustomers) {
+            <tr>
+                <td><a href="@routes.HomeController.editProject(pwc._1.id)">@pwc._1.name</a></td>
+                <td>@pwc._2.name</td>
+            </tr>
+        }
+        </tbody>
+
+    </table>
+
+    <a class="btn success" id="add" href="@routes.HomeController.createProject()">Add a new project</a>
+}
