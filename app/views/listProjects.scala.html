@@ -1,6 +1,5 @@
 @(projectsWithCustomers: Seq[(Project, Customer)])(implicit request: MessagesRequestHeader)
 
-
 @main {
     <table class="projects zebra-striped">
 
@@ -22,5 +21,7 @@
 
     </table>
 
+    <div class="actions">
     <a class="btn success" id="add" href="@routes.HomeController.createProject()">Add a new project</a>
+    </div>
 }

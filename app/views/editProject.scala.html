@@ -14,21 +14,22 @@
             @select(
                 projectForm("company"),
                 customers,
-                '_label -> "Customer", '_default -> "-- Choose a customer --",
+                '_label -> "Customer",
+                '_default -> customers.find(customer => customer._1.toLong == projectForm.value.get.customerId).get._2,
                 '_showConstraints -> false
             )
         </fieldset>
 
         <div class="actions">
-            <input type="submit" value="Save this project" class="btn primary"> or
+            <input type="submit" value="Save this project" class="btn primary">
+            @form(routes.HomeController.deleteProject(id), 'class -> "topRight") {
+                @CSRF.formField
+                <input type="submit" value="Delete this project" class="btn danger">
+            } or
             <a href="@routes.HomeController.listProjects()" class="btn">Cancel</a>
         </div>
 
-    }
+}
 
-    @form(routes.HomeController.deleteProject(id), 'class -> "topRight") {
-        @CSRF.formField
-        <input type="submit" value="Delete this project" class="btn danger">
-    }
 
 }
